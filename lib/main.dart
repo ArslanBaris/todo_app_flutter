@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:todo_app/constants/color.dart';
+import 'package:todo_app/todoItem.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,8 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+List<String> tasks = ["Study Lessons", "Run 5K", "Go to Gym"];
+List<String> completedTasks = ["Game meetup","Take out the trash"];
 class _MyAppState extends State<MyApp> {
   bool isChecked = false;
 
@@ -68,45 +71,15 @@ class _MyAppState extends State<MyApp> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   child: SingleChildScrollView(
-                    // to make the list scrollable
-                    child: Column(
-                      children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            // to make the card rounded
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Icon(
-                                    Icons.notes_outlined,
-                                    size: 50,
-                                  ),
-                                  const Text(
-                                    "Study Lessons",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0,
-                                    ),
-                                  ),
-                                  Checkbox(
-                                      value: isChecked,
-                                      onChanged: (value) => {
-                                            setState(() {
-                                              isChecked =
-                                                  value!; // ! means not null
-                                            })
-                                          })
-                                ]),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      // to make the list scrollable
+                      child: ListView.builder(
+                    primary: false,
+                    shrinkWrap: true,
+                    itemCount: tasks.length,
+                    itemBuilder: (context, index) {
+                      return TodoItem(title: tasks[index]);
+                    },
+                  )),
                 ),
               ),
               // COLUMN TITLE
@@ -128,42 +101,13 @@ class _MyAppState extends State<MyApp> {
                   padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   child: SingleChildScrollView(
                     // to make the list scrollable
-                    child: Column(
-                      children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            // to make the card rounded
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Icon(
-                                    Icons.notes_outlined,
-                                    size: 50,
-                                  ),
-                                  const Text(
-                                    "Study Lessons",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0,
-                                    ),
-                                  ),
-                                  Checkbox(
-                                      value: isChecked,
-                                      onChanged: (value) => {
-                                            setState(() {
-                                              isChecked =
-                                                  value!; // ! means not null
-                                            })
-                                          })
-                                ]),
-                          ),
-                        ),
-                      ],
+                    child: ListView.builder(
+                      primary: false,
+                      shrinkWrap: true,
+                      itemCount: completedTasks.length,
+                      itemBuilder: (context, index) {
+                        return TodoItem(title: completedTasks[index]);
+                      },
                     ),
                   ),
                 ),
